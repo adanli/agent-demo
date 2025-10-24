@@ -1,20 +1,20 @@
-# demo.py
-from fastmcp import FastMCP, Tool
-from datetime import datetime
+from fastmcp import FastMCP
 
-app = FastMCP(title="Time Tool Service", version="1.0.0")
+mcp_server = FastMCP()
 
-@app.tool(name="get_current_time", description="获取当前的日期和时间")
-def get_current_time() -> str:
-    """返回当前时间的字符串表示"""
-    now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    return f"当前时间是：{now}"
 
-@app.tool(name="add_numbers", description="将两个数字相加")
-def add_numbers(a: float, b: float) -> float:
-    """返回 a + b 的结果"""
-    return a + b
+def greet(name: str) -> str:
+    """
+    生成个性化问候
+    :param name: 要问候的人的姓名
+    :return: 问候语字符串
+    """
+    return f"你好, {name}!很高兴认识你"
 
-if __name__ == "__main__":
-    # 启动 MCP 服务，默认监听 8000 端口
-    app.run(host="0.0.0.0", port=8000)
+
+if __name__ == '__main__':
+    mcp_server.run(
+        transport='http',
+        host='localhost',
+        port=8080
+    )
